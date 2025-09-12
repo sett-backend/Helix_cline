@@ -110,4 +110,16 @@ jobs:
                   echo "Pushing to remote..."
                   echo "--------------------------------------------------------------------------------"
                   CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-                  git push origin $CURRENT_BRANCH
+                  if [ "$CURRENT_BRANCH" = "HEAD" ]; then
+                      echo "In detached HEAD state, checking for changeset-release/main branch"
+                      if git show-ref --verify --quiet refs/remotes/origin/changeset-release/main; then
+                          echo "Pushing to changeset-release/main"
+                          git push origin HEAD:changeset-release/main
+                      else
+                          echo "ERROR: No changeset-release/main branch found in detached HEAD state"
+                          exit 1
+                      fi
+                  else
+                      echo "On branch: $CURRENT_BRANCH"
+                      git push origin $CURRENT_BRANCH
+                  fi
