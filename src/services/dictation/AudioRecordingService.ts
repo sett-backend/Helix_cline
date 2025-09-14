@@ -9,7 +9,8 @@ function isExecutable(filePath: string): boolean {
 	try {
 		fs.accessSync(filePath, fs.constants.X_OK)
 		return true
-	} catch (e) {
+	} catch {
+		Logger.warn(`File is not executable: ${filePath}`)
 		return false
 	}
 }
@@ -103,7 +104,7 @@ export class AudioRecordingService {
 						resolve()
 					}, 5000)
 
-					this.recordingProcess.on("exit", (code) => {
+					this.recordingProcess.on("exit", () => {
 						clearTimeout(timeoutId) // Clear the timeout since process exited
 						resolve()
 					})
@@ -164,7 +165,7 @@ export class AudioRecordingService {
 						resolve()
 					}, 5000)
 
-					this.recordingProcess.on("exit", (code) => {
+					this.recordingProcess.on("exit", () => {
 						clearTimeout(timeoutId) // Clear the timeout since process exited
 						resolve()
 					})

@@ -304,7 +304,7 @@ export class TelemetryService {
 	 * @param platform The platform where recording is happening (macOS, Windows, Linux)
 	 * @param collect If true, collect event instead of sending
 	 */
-	public captureVoiceRecordingStarted(taskId?: string, platform?: string, collect: boolean = false) {
+	public captureVoiceRecordingStarted(taskId?: string, platform?: string) {
 		if (!this.isCategoryEnabled("dictation")) {
 			return
 		}
@@ -327,13 +327,7 @@ export class TelemetryService {
 	 * @param platform The platform where recording happened
 	 * @param collect If true, collect event instead of sending
 	 */
-	public captureVoiceRecordingStopped(
-		taskId?: string,
-		durationMs?: number,
-		success?: boolean,
-		platform?: string,
-		collect?: boolean,
-	) {
+	public captureVoiceRecordingStopped(taskId?: string, durationMs?: number, success?: boolean, platform?: string) {
 		if (!this.isCategoryEnabled("dictation")) {
 			return
 		}
@@ -357,7 +351,7 @@ export class TelemetryService {
 	 * @param language Language hint provided for transcription
 	 * @param collect If true, collect event instead of sending
 	 */
-	public captureVoiceTranscriptionStarted(taskId?: string, language?: string, collect: boolean = false) {
+	public captureVoiceTranscriptionStarted(taskId?: string, language?: string) {
 		if (!this.isCategoryEnabled("dictation")) {
 			return
 		}
@@ -385,7 +379,6 @@ export class TelemetryService {
 		transcriptionLength?: number,
 		durationMs?: number,
 		language?: string,
-		collect: boolean = false,
 	) {
 		if (!this.isCategoryEnabled("dictation")) {
 			return
@@ -411,13 +404,7 @@ export class TelemetryService {
 	 * @param durationMs Time taken before failure in milliseconds
 	 * @param collect If true, collect event instead of sending
 	 */
-	public captureVoiceTranscriptionError(
-		taskId?: string,
-		errorType?: string,
-		errorMessage?: string,
-		durationMs?: number,
-		collect: boolean = false,
-	) {
+	public captureVoiceTranscriptionError(taskId?: string, errorType?: string, errorMessage?: string, durationMs?: number) {
 		if (!this.isCategoryEnabled("dictation")) {
 			return
 		}

@@ -183,18 +183,26 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
 	}, [onProcessingStateChange, onTranscription])
 
 	const handleStartClick = useCallback(() => {
-		if (disabled || isProcessing) return
-		if (error) return setError(null)
+		if (disabled || isProcessing) {
+			return
+		}
+		if (error) {
+			return setError(null)
+		}
 		startRecording()
 	}, [startRecording, disabled, isProcessing, error])
 
 	const handleCancelClick = useCallback(() => {
-		if (disabled || isProcessing) return
+		if (disabled || isProcessing) {
+			return
+		}
 		cancelRecording()
 	}, [cancelRecording, disabled, isProcessing])
 
 	const handleStopClick = useCallback(() => {
-		if (disabled || isProcessing) return
+		if (disabled || isProcessing) {
+			return
+		}
 		stopRecording()
 	}, [stopRecording, disabled, isProcessing])
 
