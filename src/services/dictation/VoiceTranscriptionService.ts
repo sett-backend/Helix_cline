@@ -1,7 +1,6 @@
 import { Logger } from "@services/logging/Logger"
 import axios from "axios"
 import { ClineAccountService } from "@/services/account/ClineAccountService"
-import { telemetryService } from "@/services/telemetry"
 
 export class VoiceTranscriptionService {
 	private clineAccountService: ClineAccountService
@@ -16,20 +15,27 @@ export class VoiceTranscriptionService {
 
 			// Check if using organization account for telemetry
 			const userInfo = await this.clineAccountService.fetchMe()
-			const isOrgAccount = userInfo?.organizations?.some((org) => org.active) ?? false
+			const activeOrg = userInfo?.organizations?.find((org) => org.active)
+			const isOrgAccount = !!activeOrg
 
 			const result = await this.clineAccountService.transcribeAudio(audioBase64, language)
 
 			Logger.info("Transcription successful")
 
-			// Capture telemetry with account type
-			telemetryService.captureVoiceTranscriptionCompleted(
-				undefined, // taskId
-				result.text?.length,
-				undefined, // duration
-				language,
-				isOrgAccount,
-			)
+			// Capture telemetry with account type - use dynamic import to avoid circular dependency
+			try {
+				const { telemetryService } = await import("@/services/telemetry")
+				telemetryService.captureVoiceTranscriptionCompleted(
+					undefined, // taskId
+					result.text?.length,
+					undefined, // duration
+					language,
+					isOrgAccount,
+				)
+			} catch (e) {
+				// Telemetry is optional, don't fail if it's not available
+				Logger.warn(`Could not capture telemetry for voice transcription: ${e}`)
+			}
 
 			return { text: result.text }
 		} catch (error) {
