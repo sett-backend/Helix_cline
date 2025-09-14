@@ -1,7 +1,7 @@
 import { RecordingResult } from "@shared/proto/cline/dictation"
 import { HostProvider } from "@/hosts/host-provider"
 import { audioRecordingService } from "@/services/dictation/AudioRecordingService"
-import { telemetryService } from "@/services/posthog/PostHogClientProvider"
+import { telemetryService } from "@/services/telemetry"
 import { ShowMessageType } from "@/shared/proto/host/window"
 import { Controller } from ".."
 

@@ -1,7 +1,7 @@
-import { telemetryService } from "@services/posthog/PostHogClientProvider"
 import { TranscribeAudioRequest, Transcription } from "@shared/proto/cline/dictation"
 import { HostProvider } from "@/hosts/host-provider"
 import { voiceTranscriptionService } from "@/services/dictation/VoiceTranscriptionService"
+import { telemetryService } from "@/services/telemetry"
 import { ShowMessageType } from "@/shared/proto/host/window"
 import { Controller } from ".."
 
