@@ -372,13 +372,14 @@ export class TelemetryService {
 	 * @param transcriptionLength Length of the transcribed text
 	 * @param durationMs Time taken for transcription in milliseconds
 	 * @param language Language used for transcription
-	 * @param collect If true, collect event instead of sending
+	 * @param isOrgAccount Whether the transcription was done using an organization account
 	 */
 	public captureVoiceTranscriptionCompleted(
 		taskId?: string,
 		transcriptionLength?: number,
 		durationMs?: number,
 		language?: string,
+		isOrgAccount?: boolean,
 	) {
 		if (!this.isCategoryEnabled("dictation")) {
 			return
@@ -391,6 +392,7 @@ export class TelemetryService {
 				transcriptionLength,
 				durationMs,
 				language,
+				accountType: isOrgAccount ? "organization" : "personal",
 				timestamp: new Date().toISOString(),
 			},
 		})

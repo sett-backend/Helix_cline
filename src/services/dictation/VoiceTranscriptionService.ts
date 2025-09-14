@@ -1,6 +1,7 @@
 import { Logger } from "@services/logging/Logger"
 import axios from "axios"
 import { ClineAccountService } from "@/services/account/ClineAccountService"
+import { telemetryService } from "@/services/telemetry"
 
 export class VoiceTranscriptionService {
 	private clineAccountService: ClineAccountService
@@ -13,9 +14,22 @@ export class VoiceTranscriptionService {
 		try {
 			Logger.info("Transcribing audio with Cline transcription service...")
 
+			// Check if using organization account for telemetry
+			const userInfo = await this.clineAccountService.fetchMe()
+			const isOrgAccount = userInfo?.organizations?.some((org) => org.active) ?? false
+
 			const result = await this.clineAccountService.transcribeAudio(audioBase64, language)
 
 			Logger.info("Transcription successful")
+
+			// Capture telemetry with account type
+			telemetryService.captureVoiceTranscriptionCompleted(
+				undefined, // taskId
+				result.text?.length,
+				undefined, // duration
+				language,
+				isOrgAccount,
+			)
 
 			return { text: result.text }
 		} catch (error) {
