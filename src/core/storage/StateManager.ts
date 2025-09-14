@@ -5,7 +5,6 @@ import { getTaskHistoryStateFilePath, readTaskHistoryFromState, writeTaskHistory
 import { STATE_MANAGER_NOT_INITIALIZED } from "./error-messages"
 import { GlobalState, GlobalStateKey, LocalState, LocalStateKey, SecretKey, Secrets } from "./state-keys"
 import { readGlobalStateFromDisk, readSecretsFromDisk, readWorkspaceStateFromDisk } from "./utils/state-helpers"
-
 export interface PersistenceErrorEvent {
 	error: Error
 }

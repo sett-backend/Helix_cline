@@ -4,6 +4,7 @@ import { Controller } from "@/core/controller"
 import { AutoApprovalSettings, DEFAULT_AUTO_APPROVAL_SETTINGS } from "@/shared/AutoApprovalSettings"
 import { BrowserSettings, DEFAULT_BROWSER_SETTINGS } from "@/shared/BrowserSettings"
 import { ClineRulesToggles } from "@/shared/cline-rules"
+import { DEFAULT_DICTATION_SETTINGS, DictationSettings } from "@/shared/DictationSettings"
 import { DEFAULT_FOCUS_CHAIN_SETTINGS, FocusChainSettings } from "@/shared/FocusChainSettings"
 import { DEFAULT_MCP_DISPLAY_MODE, McpDisplayMode } from "@/shared/McpDisplayMode"
 import { Mode, OpenaiReasoningEffort } from "@/shared/storage/types"
@@ -11,7 +12,6 @@ import { TelemetrySetting } from "@/shared/TelemetrySetting"
 import { UserInfo } from "@/shared/UserInfo"
 import { readTaskHistoryFromState } from "../disk"
 import { GlobalState, LocalState, SecretKey, Secrets } from "../state-keys"
-
 export async function readSecretsFromDisk(context: ExtensionContext): Promise<Secrets> {
 	const [
 		apiKey,
@@ -202,6 +202,7 @@ export async function readGlobalStateFromDisk(context: ExtensionContext): Promis
 		const difyBaseUrl = context.globalState.get("difyBaseUrl") as string | undefined
 		const openaiReasoningEffort = context.globalState.get("openaiReasoningEffort") as OpenaiReasoningEffort | undefined
 		const preferredLanguage = context.globalState.get("preferredLanguage") as string | undefined
+		const dictationSettings = context.globalState.get("dictationSettings") as DictationSettings | undefined
 		const focusChainSettings = context.globalState.get("focusChainSettings") as FocusChainSettings | undefined
 
 		const mcpMarketplaceCatalog = context.globalState.get("mcpMarketplaceCatalog") as GlobalState["mcpMarketplaceCatalog"]
@@ -449,6 +450,7 @@ export async function readGlobalStateFromDisk(context: ExtensionContext): Promis
 			globalClineRulesToggles: globalClineRulesToggles || {},
 			browserSettings: { ...DEFAULT_BROWSER_SETTINGS, ...browserSettings }, // this will ensure that older versions of browserSettings (e.g. before remoteBrowserEnabled was added) are merged with the default values (false for remoteBrowserEnabled)
 			preferredLanguage: preferredLanguage || "English",
+			dictationSettings: { ...DEFAULT_DICTATION_SETTINGS, ...dictationSettings },
 			openaiReasoningEffort: (openaiReasoningEffort as OpenaiReasoningEffort) || "medium",
 			mode: mode || "act",
 			userInfo,

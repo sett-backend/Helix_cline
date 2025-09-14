@@ -18,7 +18,10 @@ service StateService {
   rpc updateTelemetrySetting(TelemetrySettingRequest) returns (Empty);
   rpc setWelcomeViewCompleted(BooleanRequest) returns (Empty);
 }
-
+message DictationSettings {
+  bool dictation_enabled = 1;
+  string dictation_language = 2;
+}
 message State {
   string state_json = 1;
 }
@@ -138,6 +141,7 @@ message UpdateSettingsRequest {
   optional string custom_prompt = 19;
   optional BrowserSettingsUpdate browser_settings = 20;
   optional string default_terminal_profile = 21;
+  optional DictationSettings dictation_settings = 22;
 }
 
 // Complete API Configuration message

@@ -621,6 +621,7 @@ export class Controller {
 		const taskHistory = this.stateManager.getGlobalStateKey("taskHistory")
 		const autoApprovalSettings = this.stateManager.getGlobalStateKey("autoApprovalSettings")
 		const browserSettings = this.stateManager.getGlobalStateKey("browserSettings")
+		const dictationSettings = this.stateManager.getGlobalStateKey("dictationSettings")
 		const focusChainSettings = this.stateManager.getGlobalStateKey("focusChainSettings")
 		const preferredLanguage = this.stateManager.getGlobalStateKey("preferredLanguage")
 		const openaiReasoningEffort = this.stateManager.getGlobalStateKey("openaiReasoningEffort")
@@ -680,6 +681,7 @@ export class Controller {
 			checkpointManagerErrorMessage,
 			autoApprovalSettings,
 			browserSettings,
+			dictationSettings,
 			focusChainSettings,
 			preferredLanguage,
 			openaiReasoningEffort,

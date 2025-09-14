@@ -1,4 +1,5 @@
 import { buildApiHandler } from "@core/api"
+
 import { Empty } from "@shared/proto/cline/common"
 import {
 	PlanActMode,
@@ -145,7 +146,9 @@ export async function updateSettings(controller: Controller, request: UpdateSett
 			}
 			controller.stateManager.setGlobalState("strictPlanModeEnabled", request.strictPlanModeEnabled)
 		}
-
+		if (request.dictationSettings !== undefined) {
+			controller.stateManager.setGlobalState("dictationSettings", request.dictationSettings)
+		}
 		// Update auto-condense setting
 		if (request.useAutoCondense !== undefined) {
 			if (controller.task) {

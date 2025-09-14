@@ -5,13 +5,13 @@ import { WorkspaceRoot } from "@/core/workspace/WorkspaceRoot"
 import { AutoApprovalSettings } from "@/shared/AutoApprovalSettings"
 import { BrowserSettings } from "@/shared/BrowserSettings"
 import { ClineRulesToggles } from "@/shared/cline-rules"
+import { DictationSettings } from "@/shared/DictationSettings"
 import { HistoryItem } from "@/shared/HistoryItem"
 import { McpDisplayMode } from "@/shared/McpDisplayMode"
 import { McpMarketplaceCatalog } from "@/shared/mcp"
 import { Mode, OpenaiReasoningEffort } from "@/shared/storage/types"
 import { TelemetrySetting } from "@/shared/TelemetrySetting"
 import { UserInfo } from "@/shared/UserInfo"
-
 export type SecretKey = keyof Secrets
 
 export type GlobalStateKey = keyof GlobalState
@@ -80,6 +80,7 @@ export interface GlobalState {
 	preferredLanguage: string
 	openaiReasoningEffort: OpenaiReasoningEffort
 	mode: Mode
+	dictationSettings: DictationSettings
 	focusChainSettings: FocusChainSettings
 	customPrompt: "compact" | undefined
 	difyBaseUrl: string | undefined
