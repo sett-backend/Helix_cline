@@ -37,6 +37,7 @@ export interface ExtensionState {
 	autoApprovalSettings: AutoApprovalSettings
 	browserSettings: BrowserSettings
 	dictationSettings: DictationSettings
+	isDictationFeatureEnabled?: boolean // Feature flag for dictation
 	remoteBrowserHost?: string
 	preferredLanguage?: string
 	openaiReasoningEffort?: OpenaiReasoningEffort

@@ -1,6 +1,6 @@
 import { TranscribeAudioRequest, Transcription } from "@shared/proto/cline/dictation"
 import { HostProvider } from "@/hosts/host-provider"
-import { voiceTranscriptionService } from "@/services/dictation/VoiceTranscriptionService"
+import { getVoiceTranscriptionService } from "@/services/dictation/VoiceTranscriptionService"
 import { telemetryService } from "@/services/telemetry"
 import { ShowMessageType } from "@/shared/proto/host/window"
 import { Controller } from ".."
@@ -20,7 +20,7 @@ export const transcribeAudio = async (controller: Controller, request: Transcrib
 
 	try {
 		// Transcribe the audio
-		const result = await voiceTranscriptionService.transcribeAudio(request.audioBase64, request.language || "en")
+		const result = await getVoiceTranscriptionService().transcribeAudio(request.audioBase64, request.language || "en")
 		const durationMs = Date.now() - startTime
 
 		if (result.error) {

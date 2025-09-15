@@ -292,6 +292,7 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 			showChatModelSelector: showModelSelector,
 			setShowChatModelSelector: setShowModelSelector,
 			dictationSettings,
+			isDictationFeatureEnabled,
 		} = useExtensionState()
 		const [isTextAreaFocused, setIsTextAreaFocused] = useState(false)
 		const [isDraggingOver, setIsDraggingOver] = useState(false)
@@ -1715,7 +1716,7 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 								flexDirection: "row",
 								alignItems: "center",
 							}}>
-							{dictationSettings?.dictationEnabled === true && (
+							{dictationSettings?.dictationEnabled === true && isDictationFeatureEnabled && (
 								<VoiceRecorder
 									disabled={sendingDisabled}
 									language={dictationSettings?.dictationLanguage || "en"}

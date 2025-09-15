@@ -671,6 +671,10 @@ export class Controller {
 			publisher: this.context.extension?.packageJSON?.publisher,
 		}
 
+		// Check if dictation feature flag is enabled
+		const isDictationFeatureEnabled = true
+		// featureFlagsService.getBooleanFlagEnabled(FeatureFlag.DICTATION, true)
+
 		return {
 			version,
 			apiConfiguration,
@@ -682,6 +686,7 @@ export class Controller {
 			autoApprovalSettings,
 			browserSettings,
 			dictationSettings,
+			isDictationFeatureEnabled,
 			focusChainSettings,
 			preferredLanguage,
 			openaiReasoningEffort,
